@@ -1,5 +1,6 @@
 import 'package:doon_kart/routs.dart';
-import 'package:doon_kart/screens/splash_screen.dart';
+import 'Theme.dart';
+import 'file:///D:/Mohak/Android%20Project/doon_kart/lib/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'contents.dart';
@@ -15,15 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: "Muli",
-        textTheme: TextTheme(
-            bodyText1: TextStyle(color: kTextColor),
-            bodyText2: TextStyle(color: kTextColor)
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme(),
       //home: SplashScreen(),
       initialRoute: SplashScreen.routeName,
       routes: routes,

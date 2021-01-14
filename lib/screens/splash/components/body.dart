@@ -1,5 +1,6 @@
 import 'package:doon_kart/components/default_button.dart';
 import 'package:doon_kart/contents.dart';
+import 'package:doon_kart/screens/sign_in/sign_in_screen.dart';
 import 'package:doon_kart/size_config.dart';
 
 import 'splash_content.dart';
@@ -67,7 +68,9 @@ class _BodyState extends State<Body> {
                       ),
                       DefaultButton(
                         text: "Continue",
-                        press: () {},
+                        press: () {
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        },
                       ),
                       Spacer(),
                     ],
@@ -75,7 +78,8 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ],
-          )),
+          )
+      ),
     );
   }
 
