@@ -1,4 +1,5 @@
 import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
+import 'package:doon_kart/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../contents.dart';
@@ -19,7 +20,7 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: (){},
+          onTap: ()=>Navigator.pushNamed(context, SignUpScreen.routeName),
           child: Text(
             "Sign Up",
             style: TextStyle(

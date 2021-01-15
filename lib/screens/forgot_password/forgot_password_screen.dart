@@ -1,4 +1,4 @@
-import 'package:doon_kart/screens/forgot_password/body.dart';
+import 'file:///D:/Mohak/Android%20Project/doon_kart/lib/screens/forgot_password/components/body.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

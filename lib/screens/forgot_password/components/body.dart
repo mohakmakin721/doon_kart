@@ -5,7 +5,7 @@ import 'package:doon_kart/components/no_account_text.dart';
 import 'package:doon_kart/size_config.dart';
 import 'package:flutter/material.dart';
 
-import '../../contents.dart';
+import '../../../contents.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -51,6 +51,20 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
   List<String> errors = [];
   String email;
 
+  void addError({String error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  void removeError({String error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -61,28 +75,21 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             keyboardType: TextInputType.emailAddress,
             onSaved: (newValue) => email = newValue,
             onChanged: (value) {
-              if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-                setState(() {
-                  errors.remove(kEmailNullError);
-                });
-              } else if (emailValidatorRegExp.hasMatch(value) &&
-                  errors.contains(kInvalidEmailError)) {
-                setState(() {
-                  errors.remove(kInvalidEmailError);
-                });
+              if (value.isNotEmpty) {
+                removeError(error: kEmailNullError);
+              }
+              if (emailValidatorRegExp.hasMatch(value)) {
+                removeError(error: kInvalidEmailError);
               }
               return null;
             },
             validator: (value) {
-              if (value.isEmpty && !errors.contains(kEmailNullError)) {
-                setState(() {
-                  errors.add(kEmailNullError);
-                });
-              } else if (!emailValidatorRegExp.hasMatch(value) &&
-                  !errors.contains(kInvalidEmailError)) {
-                setState(() {
-                  errors.add(kInvalidEmailError);
-                });
+              if (value.isEmpty) {
+                addError(error: kEmailNullError);
+                return "";
+              } else if (!emailValidatorRegExp.hasMatch(value)) {
+                addError(error: kInvalidEmailError);
+                return "";
               }
               return null;
             },
