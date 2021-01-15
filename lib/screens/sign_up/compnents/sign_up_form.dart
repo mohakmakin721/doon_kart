@@ -1,6 +1,7 @@
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
 import 'package:doon_kart/components/form_error.dart';
+import 'package:doon_kart/screens/complete_profile/complete_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../contents.dart';
@@ -56,6 +57,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 // Go to profile page
+                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
           ),
