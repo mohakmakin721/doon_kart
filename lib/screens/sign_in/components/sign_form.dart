@@ -1,5 +1,7 @@
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
+import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
+import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../contents.dart';
@@ -15,7 +17,7 @@ class _SignFormState extends State<SignForm> {
   @override
   String email;
   String password;
-  bool remember =false;
+  bool remember = false;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
 
@@ -34,15 +36,22 @@ class _SignFormState extends State<SignForm> {
             ),
             Row(
               children: [
-                Checkbox(value: remember,
-                    onChanged: (value){
+                Checkbox(
+                    value: remember,
+                    onChanged: (value) {
                       setState(() {
                         remember = value;
                       });
                     }),
                 Text("Remember Me"),
                 Spacer(),
-                Text("Forget Password",style: TextStyle(decoration: TextDecoration.underline),)
+                GestureDetector(
+                  onTap: ()=> Navigator.pushNamed(context, ForgotPasswordScreen.routeName),
+                  child: Text(
+                    "Forget Password",
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  ),
+                )
               ],
             ),
             FormError(errors: errors),
@@ -54,6 +63,8 @@ class _SignFormState extends State<SignForm> {
               press: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
+                  //if Valid go to success screen
+                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                 }
               },
             )
@@ -82,10 +93,12 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.add(kPassNullError);
           });
+          return"";
         } else if (value.length < 8 && !errors.contains(kShortPassError)) {
           setState(() {
             errors.add(kShortPassError);
           });
+          return"";
         }
         return null;
       },
@@ -122,11 +135,13 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.add(kEmailNullError);
           });
+          return"";
         } else if (!emailValidatorRegExp.hasMatch(value) &&
             !errors.contains(kInvalidEmailError)) {
           setState(() {
             errors.add(kInvalidEmailError);
           });
+          return"";
         }
         return null;
       },

@@ -1,6 +1,8 @@
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
+import 'package:doon_kart/components/no_account_text.dart';
 import 'package:doon_kart/components/social_card.dart';
+import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
 import 'package:doon_kart/screens/sign_in/components/sign_form.dart';
 import 'package:doon_kart/size_config.dart';
 import 'package:flutter/material.dart';
@@ -54,21 +56,7 @@ class Body extends StatelessWidget {
                 ],
               ),
               SizedBox(height: getProportionateScreenWidth(20)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account? ",
-                    style: TextStyle(fontSize: getProportionateScreenWidth(16)),
-                  ),
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(
-                        fontSize: getProportionateScreenWidth(16),
-                        color: kPrimaryColor),
-                  ),
-                ],
-              )
+              NoAccountText()
             ]),
           ),
         ),
@@ -76,3 +64,5 @@ class Body extends StatelessWidget {
     );
   }
 }
+
+
