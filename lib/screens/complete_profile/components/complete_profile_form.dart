@@ -1,6 +1,7 @@
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
 import 'package:doon_kart/components/form_error.dart';
+import 'package:doon_kart/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../contents.dart';
@@ -53,7 +54,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 //Open OTP screen
-                //Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.pushNamed(context, OTPScreen.routeName);
               }
             },
           ),
