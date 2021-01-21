@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">DoonKart</string>
+    <string name="facebook_app_id">1079649619165359</string>
+    <string name="fb_login_protocol_scheme">fb1079649619165359</string>
+</resources>

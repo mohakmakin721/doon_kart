@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "812032795580",
+    "project_id": "doonkart-55640",
+    "storage_bucket": "doonkart-55640.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812032795580:android:1233ddc0d6d793f205c1b9",
+        "android_client_info": {
+          "package_name": "com.focus.doon_kart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812032795580-l4b1sdqf38sgb3cdo2qrb4hi6rhvpn71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.focus.doon_kart",
+            "certificate_hash": "7715c224016177d2b8343d5fcdf13f0347e89951"
+          }
+        },
+        {
+          "client_id": "812032795580-fvt4gbmqeotgk1b6pkvu677tm6meb68e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN04_NTbtsPkXSrJCCUGPF335swxSCzq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812032795580-fvt4gbmqeotgk1b6pkvu677tm6meb68e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

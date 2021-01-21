@@ -1,10 +1,10 @@
-import 'package:doon_kart/components/custom_suffix_icon.dart';
-import 'package:doon_kart/components/default_button.dart';
-import 'package:doon_kart/components/form_error.dart';
+import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/components/social_card.dart';
+import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 import 'package:doon_kart/screens/sign_up/compnents/sign_up_form.dart';
 import 'package:doon_kart/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../contents.dart';
 
@@ -44,15 +44,44 @@ class Body extends StatelessWidget {
                 children: [
                   SocialCard(
                     icon: "assets/icons/google-icon.svg",
-                    press: () {},
+                    press: () {
+                      context
+                          .read<AuthenticationService>()
+                          .signInWithGoogle()
+                          .then((result) {
+                        if (result != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginSuccessScreen();
+                              },
+                            ),
+                          );
+                        }
+                      });
+                    },
                   ),
                   SocialCard(
                     icon: "assets/icons/facebook-2.svg",
-                    press: () {},
-                  ),
-                  SocialCard(
-                    icon: "assets/icons/twitter.svg",
-                    press: () {},
+                    press: () {
+                      context
+                          .read<AuthenticationService>()
+                          .signInWithFacebook(context)
+                          .then((user) {
+                        if (user != null) {
+                          print('Logged in successfully.');
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginSuccessScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          print('Error while Login.');
+                        }
+                      });
+                    },
                   ),
                 ],
               ),

@@ -1,8 +1,13 @@
+import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
-import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
+import 'package:doon_kart/routs.dart';
+
+import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../contents.dart';
 import '../../../size_config.dart';
@@ -18,8 +23,14 @@ class _SignFormState extends State<SignForm> {
   String email;
   String password;
   bool remember = false;
+
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  UserCredential user;
+
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -60,7 +71,8 @@ class _SignFormState extends State<SignForm> {
                 Text("Remember Me"),
                 Spacer(),
                 GestureDetector(
-                  onTap: ()=> Navigator.pushNamed(context, ForgotPasswordScreen.routeName),
+                  onTap: () => Navigator.pushNamed(
+                      context, ForgotPasswordScreen.routeName),
                   child: Text(
                     "Forget Password",
                     style: TextStyle(decoration: TextDecoration.underline),
@@ -75,11 +87,30 @@ class _SignFormState extends State<SignForm> {
             DefaultButton(
               text: "Continue",
               press: () {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-                  //if Valid go to success screen
-                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                }
+                context.read<AuthenticationService>().signIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim());
+                firebaseAuth
+                    .signInWithEmailAndPassword(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim())
+                    .then((result) {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        LoginSuccessScreen.routeName,
+                        (Route<dynamic> route) => false);
+                  }
+                }).catchError((onError) {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        LoginSuccessScreen.routeName,
+                        (Route<dynamic> route) => false);
+                  }
+                });
               },
             )
           ],
@@ -89,12 +120,17 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
+      controller: passwordController,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } if (value.length >= 8) {
+        }
+        if (value.length >= 8) {
           removeError(error: kShortPassError);
+        }
+        if (firebaseAuth.currentUser != null) {
+          removeError(error: "Check your Email/Password");
         }
         return null;
       },
@@ -104,6 +140,9 @@ class _SignFormState extends State<SignForm> {
           return "";
         } else if (value.length < 8) {
           addError(error: kShortPassError);
+          return "";
+        } else if (firebaseAuth.currentUser == null) {
+          addError(error: "Check your Email/Password");
           return "";
         }
         return null;
@@ -121,13 +160,18 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
-        } if (emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
+        }
+        if (firebaseAuth.currentUser != null) {
+          removeError(error: "Check your Email/Password");
         }
         return null;
       },
@@ -137,6 +181,9 @@ class _SignFormState extends State<SignForm> {
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);
+          return "";
+        } else if (firebaseAuth.currentUser == null) {
+          addError(error: "Check your Email/Password");
           return "";
         }
         return null;
