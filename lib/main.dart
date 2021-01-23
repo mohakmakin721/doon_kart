@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/routs.dart';
+import 'package:doon_kart/screens/complete_profile/complete_profile_screen.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 import 'package:doon_kart/screens/splash/splash_screen.dart';
 
@@ -8,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'Theme.dart';
 import 'package:flutter/material.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,8 +54,26 @@ class AuthenticationWrapper extends StatelessWidget {
     //final firebaseUser = context.watch<User>();
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-    if (firebaseAuth.currentUser != null) {
-      Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+    try {
+      final uid = firebaseAuth.currentUser.uid;
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get()
+          .then((value) {
+            if(!value.exists){
+              Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+            }
+            else if(value.exists)
+              {
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+              }
+
+      }).catchError((onError) =>
+              Navigator.pushNamed(context, LoginSuccessScreen.routeName));
+    } catch (e) {
+      print(e.message);
     }
 
     return Container();

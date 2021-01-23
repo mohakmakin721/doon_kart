@@ -79,25 +79,22 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 if (_formKey.currentState.validate()) {
                   //Open OTP screen
                   uid = FirebaseAuth.instance.currentUser.uid;
-                  users.doc(uid)
-                      .set({
-                        'first_name': firstNameController.text.trim(),
-                        // Mohak
-                        'last_name': lastNameController.text.trim(),
-                        //Makin
-                        'phone_number': phoneNumberController.text.trim(),
-                        'address': addressController.text.trim(),
-                        'email': emailController.text.trim(),
-                        // mohakmakin721@gmail.com
-                        'age': ageController.text.trim(),
-                        'uid': uid,
-                        // 22
-                      })
-                      .then((value) => print("User Added"))
-                      .catchError(
-                          (error) => print("Failed to add user: $error"));
-
-                  Navigator.pushNamed(context, OTPScreen.routeName);
+                  users.doc(uid).set({
+                    'first_name': firstNameController.text.trim(),
+                    // Mohak
+                    'last_name': lastNameController.text.trim(),
+                    //Makin
+                    'phone_number': phoneNumberController.text.trim(),
+                    'address': addressController.text.trim(),
+                    'email': emailController.text.trim(),
+                    // mohakmakin721@gmail.com
+                    'age': ageController.text.trim(),
+                    'uid': uid,
+                    // 22
+                  }).then((value) {
+                    print("User Added");
+                    Navigator.pushNamed(context, OTPScreen.routeName);
+                  }).catchError((error) => print("Failed to add user: $error"));
                 }
               });
             },
