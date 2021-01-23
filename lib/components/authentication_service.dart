@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FacebookLogin fbLogin = new FacebookLogin();
 
@@ -26,9 +25,9 @@ class AuthenticationService {
             facebookLoginResult.accessToken;
         final AuthCredential credential =
         FacebookAuthProvider.credential(facebookAccessToken.token);
-        final UserCredential user = await _auth.signInWithCredential(credential);
+        //final UserCredential user = await _firebaseAuth.signInWithCredential(credential);
 
-        currentUser = await _auth.currentUser;
+        currentUser = await _firebaseAuth.currentUser;
         return "currentUser";
       }
     } catch (e) {
@@ -50,14 +49,14 @@ class AuthenticationService {
     );
 
     final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
+        await _firebaseAuth.signInWithCredential(credential);
     final User user = authResult.user;
 
     if (user != null) {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
-      final User currentUser = _auth.currentUser;
+      final User currentUser = _firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
 
       print('signInWithGoogle succeeded: $user');
@@ -76,7 +75,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    await _auth.signOut();
+    await _firebaseAuth.signOut();
   }
 
   Future<String> signIn({String email, String password}) async {

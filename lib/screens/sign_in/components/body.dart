@@ -53,6 +53,9 @@ class Body extends StatelessWidget {
                             ),
                           );
                         }
+                      }).catchError((onError){
+                        final snackBar = SnackBar(content: Text(onError+""));
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   ),
@@ -75,6 +78,9 @@ class Body extends StatelessWidget {
                         } else {
                           print('Error while Login.');
                         }
+                      }).catchError((onError){
+                        final snackBar = SnackBar(content: Text(onError+""));
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   ),

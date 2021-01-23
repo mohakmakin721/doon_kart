@@ -1,10 +1,11 @@
+import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
 import 'package:doon_kart/components/form_error.dart';
 import 'package:doon_kart/screens/complete_profile/complete_profile_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 
 import '../../../contents.dart';
 import '../../../size_config.dart';
@@ -18,7 +19,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
-  String confirm_password;
+  String confirmPassword;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   UserCredential user;
   final TextEditingController emailController = TextEditingController();
@@ -63,10 +64,30 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 // Go to profile page
-                firebaseAuth.createUserWithEmailAndPassword(
-                    email: emailController.text,
-                    password: passwordController.text);
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Creating Account'),
+                    duration: Duration(seconds: 3)));
+                context
+                    .read<AuthenticationService>()
+                    .signUp(
+                        email: emailController.text,
+                        password: passwordController.text)
+                    .then((value) {
+                  if (value == "Signed Up") {
+                    Navigator.pushNamed(
+                        context, CompleteProfileScreen.routeName);
+                  }else{
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Login Failed - ' + value),
+                        duration: Duration(seconds: 4)));
+                  }
+                }).catchError((onError) {
+                  print(onError);
+                  // Find the Scaffold in the widget tree and use it to show a SnackBar.
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Login Failed - ' + onError),
+                      duration: Duration(seconds: 4)));
+                });
               }
             },
           ),
@@ -78,21 +99,22 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildConfPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => confirm_password = newValue,
+      onSaved: (newValue) => confirmPassword = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         }
-        if (value.isNotEmpty && password == confirm_password) {
+        if (password == confirmPassword) {
           removeError(error: kMatchPassError);
         }
-        confirm_password = value;
+        confirmPassword=value;
+        return null;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
+        } else if (password != value) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -118,16 +140,17 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         }
-        if (value.length >= 8) {
+        if (passwordValidator.hasMatch(value)) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        password=value;
+        return null;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (!passwordValidator.hasMatch(value)) {
           addError(error: kShortPassError);
           return "";
         }

@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'Theme.dart';
 import 'package:flutter/material.dart';
 
-import 'contents.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

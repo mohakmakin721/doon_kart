@@ -2,7 +2,6 @@ import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/components/custom_suffix_icon.dart';
 import 'package:doon_kart/components/default_button.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
-import 'package:doon_kart/routs.dart';
 
 import 'package:doon_kart/screens/forgot_password/forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -87,29 +86,32 @@ class _SignFormState extends State<SignForm> {
             DefaultButton(
               text: "Continue",
               press: () {
-                context.read<AuthenticationService>().signIn(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim());
-                firebaseAuth
-                    .signInWithEmailAndPassword(
+                context
+                    .read<AuthenticationService>()
+                    .signIn(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim())
                     .then((result) {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        LoginSuccessScreen.routeName,
-                        (Route<dynamic> route) => false);
+                  if (result == "Signed In") {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          LoginSuccessScreen.routeName,
+                          (Route<dynamic> route) => false);
+                      removeError(error: "result");
+                    }
+                  } else {
+                    addError(error: "result");
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Login Failed - ' + result),
+                        duration: Duration(seconds: 4)));
                   }
                 }).catchError((onError) {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        LoginSuccessScreen.routeName,
-                        (Route<dynamic> route) => false);
-                  }
+                  final snackBar = SnackBar(content: Text('Login Failed'));
+
+                  // Find the Scaffold in the widget tree and use it to show a SnackBar.
+                  Scaffold.of(context).showSnackBar(snackBar);
                 });
               },
             )
@@ -126,11 +128,11 @@ class _SignFormState extends State<SignForm> {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         }
-        if (value.length >= 8) {
-          removeError(error: kShortPassError);
-        }
         if (firebaseAuth.currentUser != null) {
           removeError(error: "Check your Email/Password");
+        }
+        if (passwordValidator.hasMatch(value)) {
+          removeError(error: "Check Your password");
         }
         return null;
       },
@@ -138,11 +140,11 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
-          addError(error: kShortPassError);
-          return "";
         } else if (firebaseAuth.currentUser == null) {
           addError(error: "Check your Email/Password");
+          return "";
+        } else if (!passwordValidator.hasMatch(value)) {
+          addError(error: "Check your Password");
           return "";
         }
         return null;

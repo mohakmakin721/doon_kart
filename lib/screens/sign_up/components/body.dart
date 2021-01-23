@@ -1,7 +1,7 @@
 import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/components/social_card.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
-import 'package:doon_kart/screens/sign_up/compnents/sign_up_form.dart';
+import 'package:doon_kart/screens/sign_up/components/sign_up_form.dart';
 import 'package:doon_kart/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +58,9 @@ class Body extends StatelessWidget {
                             ),
                           );
                         }
+                      }).catchError((onError){
+                        final snackBar = SnackBar(content: Text(onError+""));
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   ),
@@ -80,6 +83,9 @@ class Body extends StatelessWidget {
                         } else {
                           print('Error while Login.');
                         }
+                      }).catchError((onError){
+                        final snackBar = SnackBar(content: Text(onError+""));
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   ),
@@ -89,7 +95,7 @@ class Body extends StatelessWidget {
                 height: SizeConfig.screenHeight * 0.08,
               ),
               Text(
-                "By continuing you confirm that you agree \nwith out Term and Condition",
+                "By continuing you confirm that you agree \nwith our Term and Condition",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.caption,
               ),
