@@ -1,4 +1,5 @@
 import 'package:doon_kart/models/Product.dart';
+import 'package:doon_kart/screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,7 +24,11 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: ProductDetailsArguments(product: product),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
