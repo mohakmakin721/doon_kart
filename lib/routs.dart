@@ -1,3 +1,5 @@
+import 'package:doon_kart/screens/cart/cart_screen.dart';
+import 'package:doon_kart/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/complete_profile/complete_profile_screen.dart';
 import 'screens/details/details_screen.dart';
@@ -19,4 +21,7 @@ final Map<String, WidgetBuilder> routes = {
   OTPScreen.routeName: (context) => OTPScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
+  DetailsScreen.routeName: (context) => DetailsScreen(),
+  CartScreen.routeName:(context)=> CartScreen(),
+  ProfileScreen.routeName:(context)=> ProfileScreen(),
 };

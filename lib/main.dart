@@ -3,6 +3,7 @@ import 'package:doon_kart/components/authentication_service.dart';
 import 'package:doon_kart/routs.dart';
 import 'package:doon_kart/screens/complete_profile/complete_profile_screen.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
+import 'package:doon_kart/screens/profile/profile_screen.dart';
 import 'package:doon_kart/screens/splash/splash_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
