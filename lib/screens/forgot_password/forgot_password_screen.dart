@@ -1,4 +1,4 @@
-import 'file:///D:/Mohak/Android%20Project/doon_kart/lib/screens/forgot_password/components/body.dart';
+import 'package:doon_kart/screens/forgot_password/components/forgot_password_body.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Forgot Password"),
       ),
-      body: Body(),
+      body: ForgotPasswordBody(),
     );
   }
 }

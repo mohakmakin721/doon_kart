@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../contents.dart';
 
-class Body extends StatelessWidget {
+class ForgotPasswordBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

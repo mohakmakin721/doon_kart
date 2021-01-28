@@ -12,6 +12,7 @@ class CustomBottomNavBar extends StatelessWidget {
     @required this.selectedMenu,
   }) : super(key: key);
 
+
   final MenuState selectedMenu;
 
   @override

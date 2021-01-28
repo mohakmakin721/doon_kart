@@ -5,7 +5,7 @@ import '../../../contents.dart';
 import '../../../size_config.dart';
 import 'otp_form.dart';
 
-class Body extends StatelessWidget {
+class OtpBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

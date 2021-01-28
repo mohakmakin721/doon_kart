@@ -1,4 +1,4 @@
-import 'package:doon_kart/screens/sign_up/components/body.dart';
+import 'package:doon_kart/screens/sign_up/components/sign_up_body.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -12,7 +12,7 @@ class SignUpScreen extends StatelessWidget {
         title: Text("Sign Up"),
       ),
       body:  Builder(builder: (context){
-        return Body();
+        return SignUpBody();
       })
     );
   }

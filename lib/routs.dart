@@ -1,3 +1,4 @@
+import 'package:doon_kart/components/home_tab_controller.dart';
 import 'package:doon_kart/screens/cart/cart_screen.dart';
 import 'package:doon_kart/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,4 +25,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName:(context)=> CartScreen(),
   ProfileScreen.routeName:(context)=> ProfileScreen(),
+  HomeTabController.routeName:(context)=> HomeTabController(),
 };

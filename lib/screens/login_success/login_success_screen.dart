@@ -1,4 +1,4 @@
-import 'package:doon_kart/screens/login_success/components/body.dart';
+import 'package:doon_kart/screens/login_success/components/login_body.dart';
 import 'package:flutter/material.dart';
 
 class LoginSuccessScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class LoginSuccessScreen extends StatelessWidget {
         leading: SizedBox(),
         title: Text("Login Success"),
       ),
-      body: Body(),
+      body: LoginBody(),
     );
   }
 }

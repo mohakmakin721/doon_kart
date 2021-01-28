@@ -2,7 +2,7 @@ import 'package:doon_kart/components/custom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../enums.dart';
-import 'components/body.dart';
+import 'components/profile_body.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile"),
       ),
-      body: Body(),
+      body: ProfileBody(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),
     );
   }

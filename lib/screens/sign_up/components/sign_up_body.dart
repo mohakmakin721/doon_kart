@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../contents.dart';
 
-class Body extends StatelessWidget {
+class SignUpBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

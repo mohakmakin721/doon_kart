@@ -1,7 +1,7 @@
 import 'package:doon_kart/models/Cart.dart';
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/cart_body.dart';
 import 'components/check_out_card.dart';
 
 class CartScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: CartBody(),
       bottomNavigationBar: CheckoutCard(),
     );
   }

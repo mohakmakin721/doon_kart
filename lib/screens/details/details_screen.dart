@@ -1,7 +1,7 @@
 import 'package:doon_kart/models/Product.dart';
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/details_body.dart';
 import 'components/custom_app_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFF5F6F9),
       appBar: CustomAppBar(rating: agrs.product.rating),
-      body: Body(product: agrs.product),
+      body: DetailsBody(product: agrs.product),
     );
   }
 }

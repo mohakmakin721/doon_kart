@@ -6,12 +6,12 @@ import 'package:doon_kart/size_config.dart';
 import 'splash_content.dart';
 import 'package:flutter/material.dart';
 
-class Body extends StatefulWidget {
+class SplashBody extends StatefulWidget {
   @override
-  _BodyState createState() => _BodyState();
+  _SplashBodyState createState() => _SplashBodyState();
 }
 
-class _BodyState extends State<Body> {
+class _SplashBodyState extends State<SplashBody> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {

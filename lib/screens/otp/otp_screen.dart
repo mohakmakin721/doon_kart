@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/otp_body.dart';
 
 class OTPScreen extends StatelessWidget {
   static String routeName="/otp";
@@ -10,7 +10,7 @@ class OTPScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("OTP Verification"),
       ),
-      body: Body(),
+      body: OtpBody(),
     );
   }
 }
