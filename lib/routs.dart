@@ -1,5 +1,6 @@
 import 'package:doon_kart/components/home_tab_controller.dart';
 import 'package:doon_kart/screens/cart/cart_screen.dart';
+import 'package:doon_kart/screens/favourite/favourite_screen.dart';
 import 'package:doon_kart/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/complete_profile/complete_profile_screen.dart';
@@ -25,5 +26,6 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName:(context)=> CartScreen(),
   ProfileScreen.routeName:(context)=> ProfileScreen(),
+  FavouriteScreen.routeName:(context)=> FavouriteScreen(),
   HomeTabController.routeName:(context)=> HomeTabController(),
 };

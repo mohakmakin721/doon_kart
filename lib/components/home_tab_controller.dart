@@ -1,9 +1,6 @@
-import 'package:doon_kart/screens/cart/cart_screen.dart';
+import 'package:doon_kart/screens/favourite/components/favourite_body.dart';
 import 'package:doon_kart/screens/home/components/home_body.dart';
-import 'package:doon_kart/screens/home/home_screen.dart';
-import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 import 'package:doon_kart/screens/profile/components/profile_body.dart';
-import 'package:doon_kart/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -22,7 +19,7 @@ class _HomeTabControllerState extends State<HomeTabController> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     HomeBody(),
-    HomeBody(),
+    FavouriteBody(),
     HomeBody(),
     HomeBody(),
     ProfileBody(),

@@ -63,27 +63,7 @@ class ProductCard extends StatelessWidget {
                       color: kPrimaryColor,
                     ),
                   ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      height: getProportionateScreenWidth(28),
-                      width: getProportionateScreenWidth(28),
-                      decoration: BoxDecoration(
-                        color: product.isFavourite
-                            ? kPrimaryColor.withOpacity(0.15)
-                            : kSecondaryColor.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
-                        color: product.isFavourite
-                            ? Color(0xFFFF4848)
-                            : Color(0xFFDBDEE4),
-                      ),
-                    ),
-                  ),
+                  FavouriteFunction(product: product),
                 ],
               )
             ],
@@ -91,5 +71,52 @@ class ProductCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class FavouriteFunction extends StatefulWidget {
+  final Product product;
+
+  const FavouriteFunction({Key key, this.product}) : super(key: key);
+  @override
+  _FavouriteFunctionState createState() => _FavouriteFunctionState(product);
+}
+
+class _FavouriteFunctionState extends State<FavouriteFunction> {
+  final Product product;
+
+  _FavouriteFunctionState(this.product);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(50),
+      onTap: () {
+        favouriteToggle();
+      },
+      child: Container(
+        padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+        height: getProportionateScreenWidth(28),
+        width: getProportionateScreenWidth(28),
+        decoration: BoxDecoration(
+          color: product.isFavourite
+              ? kPrimaryColor.withOpacity(0.15)
+              : kSecondaryColor.withOpacity(0.1),
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          "assets/icons/Heart Icon_2.svg",
+          color: product.isFavourite ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
+        ),
+      ),
+    );
+  }
+
+  void favouriteToggle() {
+    setState(() {
+      (product.isFavourite == true)
+          ? (product.isFavourite = false)
+          : (product.isFavourite = true);
+    });
   }
 }
