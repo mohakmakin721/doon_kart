@@ -9,10 +9,10 @@ class LoginBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeConfig.screenHeight*0.04),
+        SizedBox(height: SizeConfig.screenHeight * 0.04),
         Image.asset("assets/images/success.png",
-            height: SizeConfig.screenHeight*0.4),
-        SizedBox(height: SizeConfig.screenHeight*0.04),
+            height: SizeConfig.screenHeight * 0.4),
+        SizedBox(height: SizeConfig.screenHeight * 0.04),
         Text(
           "Login Success",
           style: TextStyle(
@@ -23,10 +23,13 @@ class LoginBody extends StatelessWidget {
         ),
         Spacer(),
         SizedBox(
-          width: SizeConfig.screenWidth*0.6,
+          width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
             text: "Back to Home",
-            press: (){Navigator.pushNamed(context, HomeTabController.routeName);},
+            press: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomeTabController.routeName, (Route<dynamic> route) => false);
+            },
           ),
         ),
         Spacer(),

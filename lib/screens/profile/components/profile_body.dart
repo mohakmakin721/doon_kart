@@ -1,5 +1,8 @@
+import 'package:doon_kart/components/authentication_service.dart';
+import 'package:doon_kart/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -37,7 +40,11 @@ class ProfileBody extends StatelessWidget {
             ProfileMenu(
               text: "Log Out",
               icon: "assets/icons/Log out.svg",
-              press: () {},
+              press: () {context
+                  .read<AuthenticationService>()
+                  .signOut();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(SignInScreen.routeName, (Route<dynamic> route) => false);},
             ),
           ],
         ),

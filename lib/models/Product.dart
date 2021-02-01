@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Product {
@@ -23,6 +24,7 @@ class Product {
 
 // Our demo Products
 
+//List<Product> dummyProducts=new List<Product>();
 List<Product> demoProducts = [
   Product(
     id: 1,

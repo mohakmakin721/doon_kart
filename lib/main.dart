@@ -4,13 +4,17 @@ import 'package:doon_kart/routs.dart';
 import 'package:doon_kart/screens/complete_profile/complete_profile_screen.dart';
 import 'package:doon_kart/screens/login_success/login_success_screen.dart';
 import 'package:doon_kart/screens/profile/profile_screen.dart';
+import 'package:doon_kart/screens/sign_in/sign_in_screen.dart';
 import 'package:doon_kart/screens/splash/splash_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'Theme.dart';
 import 'package:flutter/material.dart';
+
+import 'components/home_tab_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,25 +60,30 @@ class AuthenticationWrapper extends StatelessWidget {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
     try {
-      final uid = firebaseAuth.currentUser.uid;
-
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .get()
-          .then((value) {
-            if(!value.exists){
-              Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-            }
-            else if(value.exists)
-              {
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
-
-      }).catchError((onError) =>
-              Navigator.pushNamed(context, LoginSuccessScreen.routeName));
+      if (firebaseAuth.currentUser != null) {
+        final uid = firebaseAuth.currentUser.uid;
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .get()
+            .then((value) {
+          if (!value.exists) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                CompleteProfileScreen.routeName,
+                (Route<dynamic> route) => false);
+          } else if (value.exists) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                SignInScreen.routeName, (Route<dynamic> route) => false);
+          } else {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                HomeTabController.routeName, (Route<dynamic> route) => false);
+          }
+        }).catchError(
+          (onError) => print(onError.message),
+        );
+      }
     } catch (e) {
-      print(e.message);
+      print(e);
     }
 
     return Container();

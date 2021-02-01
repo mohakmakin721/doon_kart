@@ -69,7 +69,9 @@ class _SplashBodyState extends State<SplashBody> {
                       DefaultButton(
                         text: "Continue",
                         press: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              SignInScreen.routeName,
+                              (Route<dynamic> route) => false);
                         },
                       ),
                       Spacer(),
@@ -78,8 +80,7 @@ class _SplashBodyState extends State<SplashBody> {
                 ),
               ),
             ],
-          )
-      ),
+          )),
     );
   }
 
@@ -96,4 +97,3 @@ class _SplashBodyState extends State<SplashBody> {
     );
   }
 }
-

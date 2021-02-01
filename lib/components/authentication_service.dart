@@ -25,7 +25,7 @@ class AuthenticationService {
             facebookLoginResult.accessToken;
         final AuthCredential credential =
         FacebookAuthProvider.credential(facebookAccessToken.token);
-        //final UserCredential user = await _firebaseAuth.signInWithCredential(credential);
+        final UserCredential user = await _firebaseAuth.signInWithCredential(credential);
 
         currentUser = await _firebaseAuth.currentUser;
         return "currentUser";
@@ -75,7 +75,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    await _firebaseAuth.signOut();
+    await googleSignIn.signOut();
   }
 
   Future<String> signIn({String email, String password}) async {

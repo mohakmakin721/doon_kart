@@ -93,7 +93,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     // 22
                   }).then((value) {
                     print("User Added");
-                    Navigator.pushNamed(context, OTPScreen.routeName);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        OTPScreen.routeName, (Route<dynamic> route) => false);
                   }).catchError((error) => print("Failed to add user: $error"));
                 }
               });
